@@ -1,0 +1,59 @@
+{
+    "name": "justinholtweb/craft-carrier-posts",
+    "description": "South-east European posts for Carrier — Hrvatska pošta, Pošta Slovenije, Magyar Posta and ELTA Courier.",
+    "version": "5.0.0",
+    "type": "craft-plugin",
+    "keywords": [
+        "craftcms",
+        "craft-plugin",
+        "craft-commerce",
+        "carrier",
+        "shipping",
+        "hrvatska-posta",
+        "posta-slovenije",
+        "magyar-posta",
+        "elta",
+        "paketomat"
+    ],
+    "license": "proprietary",
+    "homepage": "https://justinholt.com/plugins/craft-carrier",
+    "authors": [
+        {
+            "name": "Justin Holt",
+            "homepage": "https://justinholt.com"
+        }
+    ],
+    "support": {
+        "email": "justin@justinholt.com",
+        "docs": "https://justinholt.com/plugins/craft-carrier/docs/posts",
+        "source": "https://github.com/justinholtweb/craft-carrier-posts",
+        "issues": "https://github.com/justinholtweb/craft-carrier-posts/issues"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": "^8.2",
+        "craftcms/cms": "^5.3.0",
+        "justinholtweb/craft-carrier": "^5.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "justinholtweb\\carrierposts\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "craftcms/plugin-installer": true,
+            "yiisoft/yii2-composer": true
+        }
+    },
+    "extra": {
+        "name": "Carrier for National Posts",
+        "handle": "carrier-posts",
+        "developer": "Justin Holt",
+        "developerUrl": "https://justinholt.com",
+        "documentationUrl": "https://justinholt.com/plugins/craft-carrier/docs/posts",
+        "changelogUrl": "https://raw.githubusercontent.com/justinholtweb/craft-carrier-posts/main/CHANGELOG.md",
+        "class": "justinholtweb\\carrierposts\\Plugin"
+    }
+}
