@@ -206,8 +206,8 @@ class HrvatskaPostaCarrier extends Carrier
             '29' => ['name' => 'Paket 24 D+2', 'international' => false, 'points' => false],
             '32' => ['name' => 'Paket 24 D+3', 'international' => false, 'points' => false],
             '38' => ['name' => 'Paket 24 D+4', 'international' => false, 'points' => false],
-            '26-PAK' => ['name' => 'Paket 24 D+1 to a Paketomat', 'international' => false, 'points' => true],
-            '26-PU' => ['name' => 'Paket 24 D+1 to a post office', 'international' => false, 'points' => true],
+            '26-PAK' => ['name' => 'Paket 24 D+1 to a Paketomat', 'international' => false, 'points' => true, 'pointTypes' => [PickupPoint::TYPE_LOCKER]],
+            '26-PU' => ['name' => 'Paket 24 D+1 to a post office', 'international' => false, 'points' => true, 'pointTypes' => [PickupPoint::TYPE_POST_OFFICE]],
         ];
     }
 
@@ -704,22 +704,43 @@ class HrvatskaPostaCarrier extends Carrier
         ]);
     }
 
-    /** `workingHours[]` → "Mon 08:00–19:00; Tue …", skipping closed days. */
+    /**
+     * `workingHours[]` → "Mon 08:00–19:00; Tue …", Monday first, skipping closed days.
+     *
+     * The live API sends times as "HH:MM" strings and days out of order (1, 2, 7, 6, …); the
+     * documentation shows `{hour, minute, second}` objects, so both are accepted.
+     */
     private static function hours(array $days): string
     {
         $names = [1 => 'Mon', 2 => 'Tue', 3 => 'Wed', 4 => 'Thu', 5 => 'Fri', 6 => 'Sat', 7 => 'Sun'];
-        $parts = [];
+        $time = static function($t): string {
+            if (is_array($t)) {
+                return sprintf('%02d:%02d', (int)($t['hour'] ?? 0), (int)($t['minute'] ?? 0));
+            }
+            if (is_string($t) && preg_match('/^(\d{1,2}):(\d{2})/', trim($t), $m)) {
+                return sprintf('%02d:%s', (int)$m[1], $m[2]);
+            }
+            return '';
+        };
 
+        $open = [];
         foreach ($days as $day) {
             if (!is_array($day) || (string)($day['closed'] ?? '0') === '1') {
                 continue;
             }
 
-            $time = static fn($t) => is_array($t) ? sprintf('%02d:%02d', (int)($t['hour'] ?? 0), (int)($t['minute'] ?? 0)) : '';
-            $parts[] = ($names[(int)($day['weekDay'] ?? 0)] ?? '?') . ' ' . $time($day['openingTime'] ?? null) . '–' . $time($day['closingTime'] ?? null);
+            $from = $time($day['openingTime'] ?? null);
+            $to = $time($day['closingTime'] ?? null);
+            if ($from === '' || $to === '') {
+                continue;
+            }
+
+            $open[] = [(int)($day['weekDay'] ?? 0), "{$from}–{$to}"];
         }
 
-        return implode('; ', $parts);
+        usort($open, static fn($a, $b) => ($a[0] ?: 8) <=> ($b[0] ?: 8));
+
+        return implode('; ', array_map(static fn($d) => ($names[$d[0]] ?? '?') . ' ' . $d[1], $open));
     }
 
     // =========================================================================

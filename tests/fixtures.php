@@ -108,8 +108,12 @@ return [
                     'geoLatitude' => '45.8132',
                     'getLongitude' => '15.9797',
                     'workingHours' => [
-                        ['weekDay' => 1, 'date' => '2026-10-05', 'openingTime' => ['hour' => 7, 'minute' => 0, 'second' => 0], 'closingTime' => ['hour' => 20, 'minute' => 0, 'second' => 0], 'closed' => '0'],
-                        ['weekDay' => 7, 'date' => '2026-10-11', 'openingTime' => ['hour' => 0, 'minute' => 0, 'second' => 0], 'closingTime' => ['hour' => 0, 'minute' => 0, 'second' => 0], 'closed' => '1'],
+                        // Live shape (issue #1): "HH:MM" strings, days out of order.
+                        ['weekDay' => 1, 'date' => '05.10.2026', 'openingTime' => '07:00', 'closingTime' => '20:00', 'closed' => '0'],
+                        ['weekDay' => 7, 'date' => '11.10.2026', 'openingTime' => null, 'closingTime' => null, 'closed' => '1'],
+                        ['weekDay' => 6, 'date' => '10.10.2026', 'openingTime' => '07:00', 'closingTime' => '13:00', 'closed' => '0'],
+                        // Documented shape.
+                        ['weekDay' => 2, 'date' => '06.10.2026', 'openingTime' => ['hour' => 7, 'minute' => 0, 'second' => 0], 'closingTime' => ['hour' => 20, 'minute' => 0, 'second' => 0], 'closed' => '0'],
                     ],
                 ]],
                 'paketomatInfoList' => [[

@@ -1,7 +1,7 @@
 {
     "name": "justinholtweb/craft-carrier-posts",
     "description": "South-east European posts for Carrier — Hrvatska pošta, Pošta Slovenije, Magyar Posta and ELTA Courier.",
-    "version": "5.0.0",
+    "version": "5.1.0",
     "type": "craft-plugin",
     "keywords": [
         "craftcms",

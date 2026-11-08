@@ -191,8 +191,8 @@ class MagyarPostaCarrier extends Carrier
     {
         return [
             'A_175_UZL' => ['name' => 'MPL Business Parcel', 'international' => false, 'points' => false],
-            'A_175_UZL-CS' => ['name' => 'MPL Business Parcel to a parcel terminal', 'international' => false, 'points' => true],
-            'A_175_UZL-PP' => ['name' => 'MPL Business Parcel to a PostaPont', 'international' => false, 'points' => true],
+            'A_175_UZL-CS' => ['name' => 'MPL Business Parcel to a parcel terminal', 'international' => false, 'points' => true, 'pointTypes' => [PickupPoint::TYPE_LOCKER]],
+            'A_175_UZL-PP' => ['name' => 'MPL Business Parcel to a PostaPont', 'international' => false, 'points' => true, 'pointTypes' => [PickupPoint::TYPE_SHOP]],
             'A_175_UZL-PM' => ['name' => 'MPL Business Parcel to a post office', 'international' => false, 'points' => true],
             'A_177_MPC' => ['name' => 'MPL Postal Parcel', 'international' => false, 'points' => false],
             'A_177_MPC-PM' => ['name' => 'MPL Postal Parcel to a post office', 'international' => false, 'points' => true],

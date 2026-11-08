@@ -1,5 +1,13 @@
 # Release Notes for Carrier for National Posts
 
+## 5.1.0 - 2026-11-08
+
+### Added
+- Hrvatska pošta and Magyar Posta point services declare their point types. With Carrier 5.1, a Paketomat method lists only Paketomats, a post-office method only post offices, and the MPL parcel-terminal and PostaPont services likewise. ([craft-carrier#3](https://github.com/justinholtweb/craft-carrier/issues/3))
+
+### Fixed
+- Hrvatska pošta: post-office hours now parse the `"HH:MM"` strings the live API returns (they had been stored as `Mon –; Tue –; …`), and days are listed Monday first. ([#1](https://github.com/justinholtweb/craft-carrier-posts/issues/1))
+
 ## 5.0.0 - 2026-10-03
 
 ### Added
